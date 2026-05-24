@@ -91,6 +91,15 @@
         @media (max-width: 768px) {
             img { filter: none !important; }
         }
+        /* === Sticky footer — Tailwind v4 CDN 不編譯 grow，改用原生 CSS === */
+        main {
+            flex: 1 0 auto; /* 撐滿 body flex column 的剩餘空間，將 footer 推至底部 */
+        }
+        /* === Changelog accordion — overflow-hidden 未被 Tailwind v4 CDN 編譯 === */
+        /* 必須用原生 CSS 確保折疊時內容不溢出，否則 2200px 隱藏內容造成頁底空白 */
+        #changelogBody {
+            overflow: hidden;
+        }
         /* === 列印最佳化 (@media print) — PDF 白底閱讀模式 === */
         @media print {
 
