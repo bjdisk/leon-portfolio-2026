@@ -82,6 +82,12 @@
         @media (max-width: 768px) {
             img { filter: none !important; }
         }
+        /* === 列印最佳化 (@media print) === */
+        @media print {
+            html { background-color: #fff !important; }
+            body { background-image: none !important; background-color: #fff !important; }
+            .click-ripple, .mouse-trail { display: none !important; }
+        }
         .font-serif-classic {
             font-family: 'Playfair Display', 'Noto Serif TC', Georgia, Cambria, "Times New Roman", Times, serif;
         }
@@ -115,13 +121,18 @@
         }
     </style>
 </head>
-<body class="text-[#E8E5DC] antialiased min-h-screen relative selection:bg-slate-700 selection:text-white">
+<body class="text-[#E8E5DC] antialiased min-h-screen relative selection:bg-slate-700 selection:text-white print:bg-white print:text-neutral-950">
 
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0E1B30]/80 backdrop-blur-md px-6 md:px-12 py-5 flex justify-between items-center border-b editorial-border">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0E1B30]/80 backdrop-blur-md px-6 md:px-12 py-5 flex justify-between items-center border-b editorial-border print:hidden">
         <span class="font-bold tracking-[0.2em] text-xs text-slate-400 font-mono">LEON CHU // STRATEGIC PROFILE</span>
-        <button id="langToggle" class="px-4 py-1 rounded border border-slate-700/60 bg-slate-900/55 text-[11px] font-mono tracking-wider text-slate-400 hover:text-white hover:border-slate-400 transition-[color,border-color,transform] duration-200 active:scale-95 cursor-pointer">
-            EN
-        </button>
+        <div class="flex items-center gap-3">
+            <button id="printBtn" class="hidden md:inline-block px-4 py-1 rounded border border-slate-700/60 bg-slate-900/55 text-[11px] font-mono tracking-wider text-slate-400 hover:text-white hover:border-slate-400 transition-[color,border-color,transform] duration-200 active:scale-95 cursor-pointer print:hidden">
+                <span class="lang-zh">列印紙本</span><span class="lang-en">PRINT</span>
+            </button>
+            <button id="langToggle" class="px-4 py-1 rounded border border-slate-700/60 bg-slate-900/55 text-[11px] font-mono tracking-wider text-slate-400 hover:text-white hover:border-slate-400 transition-[color,border-color,transform] duration-200 active:scale-95 cursor-pointer">
+                EN
+            </button>
+        </div>
     </nav>
 
     <header class="pt-36 pb-16 px-6 md:px-12 max-w-5xl mx-auto">
@@ -198,7 +209,7 @@
                             <span class="h-px flex-1 bg-slate-700/50"></span>
                             <span class="text-[11px] font-mono text-slate-500 tracking-widest">04 FRAMES</span>
                         </div>
-                        <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 -mx-6 px-6 pb-2 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible">
+                        <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 -mx-6 px-6 pb-2 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible print:flex-wrap">
                             <figure class="group/img w-[85%] shrink-0 snap-center md:w-auto md:shrink">
                                 <div class="aspect-video overflow-hidden border border-slate-700/50 bg-slate-900/30">
                                     <img decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1wr1XiazNfCYxFF0pOASNh3wBQoYCPKek" alt="" class="w-full h-full object-cover grayscale opacity-40 group-hover/img:grayscale-0 group-hover/img:opacity-100 transition-[filter,opacity] duration-500"/>
@@ -256,7 +267,7 @@
                             <span class="h-px flex-1 bg-slate-700/50"></span>
                             <span class="text-[11px] font-mono text-slate-500 tracking-widest">04 FRAMES</span>
                         </div>
-                        <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 -mx-6 px-6 pb-2 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible">
+                        <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 -mx-6 px-6 pb-2 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible print:flex-wrap">
                             <figure class="group/img w-[85%] shrink-0 snap-center md:w-auto md:shrink">
                                 <div class="aspect-video overflow-hidden border border-slate-700/50 bg-slate-900/30">
                                     <img decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1v4ADkDFlMi9PfVgTgQUSsNiTAtIWP3sd" alt="" class="w-full h-full object-cover grayscale opacity-40 group-hover/img:grayscale-0 group-hover/img:opacity-100 transition-[filter,opacity] duration-500"/>
@@ -314,7 +325,7 @@
                             <span class="h-px flex-1 bg-slate-700/50"></span>
                             <span class="text-[11px] font-mono text-slate-500 tracking-widest">04 FRAMES</span>
                         </div>
-                        <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 -mx-6 px-6 pb-2 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible">
+                        <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 -mx-6 px-6 pb-2 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible print:flex-wrap">
                             <figure class="group/img w-[85%] shrink-0 snap-center md:w-auto md:shrink">
                                 <div class="aspect-video overflow-hidden border border-slate-700/50 bg-slate-900/30">
                                     <img decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1nCKnTm403jSiEFmYtVOChUDaXi-AmITx" alt="" class="w-full h-full object-cover grayscale opacity-40 group-hover/img:grayscale-0 group-hover/img:opacity-100 transition-[filter,opacity] duration-500"/>
@@ -381,7 +392,7 @@
                     </p>
 
                     <!-- IMAGE EVIDENCE — 華厚（無註解） -->
-                    <div class="mt-5 flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-3 -mx-5 px-5 pb-1 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-3 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible">
+                    <div class="mt-5 flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-3 -mx-5 px-5 pb-1 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-3 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible print:flex-wrap">
                         <figure class="group/img w-[85%] shrink-0 snap-center md:w-auto md:shrink">
                             <div class="aspect-video overflow-hidden border border-slate-700/50 bg-slate-900/30">
                                 <img decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1Co-nu-x2jNayhL0RkpBfo2SjshCuN2cI" alt="" class="w-full h-full object-cover grayscale opacity-40 group-hover/img:grayscale-0 group-hover/img:opacity-100 transition-[filter,opacity] duration-500"/>
@@ -412,7 +423,7 @@
                     </p>
 
                     <!-- IMAGE EVIDENCE — 汎特（無註解） -->
-                    <div class="mt-5 flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-3 -mx-5 px-5 pb-1 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-3 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible">
+                    <div class="mt-5 flex flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-none gap-3 -mx-5 px-5 pb-1 md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-4 md:gap-3 md:overflow-x-visible print:grid print:grid-cols-4 print:gap-2 print:overflow-visible print:flex-wrap">
                         <figure class="group/img w-[85%] shrink-0 snap-center md:w-auto md:shrink">
                             <div class="aspect-video overflow-hidden border border-slate-700/50 bg-slate-900/30">
                                 <img decoding="async" loading="lazy" src="https://lh3.googleusercontent.com/d/1hbpvUpqQnkxyjquA783a1zJsyeRG5rPG" alt="" class="w-full h-full object-cover grayscale opacity-40 group-hover/img:grayscale-0 group-hover/img:opacity-100 transition-[filter,opacity] duration-500"/>
@@ -448,7 +459,7 @@
             <div class="space-y-4 font-mono text-[12px] text-slate-500 leading-relaxed">
                 <div class="flex flex-col md:flex-row md:gap-4 border-b border-slate-700/40 pb-3">
                     <span class="text-slate-400 font-bold shrink-0">v2.4 (2026-05-25)</span>
-                    <span><span class="lang-zh"><b>[列印防守 × 破圖骨架 × 指針優雅退場]</b> 為三大 CASE 與 Timeline 圖片列加掛列印展開樣式，Ctrl+P 時橫向輪播自動平鋪為四欄，設計歷程記錄在列印時完整釋出。全站所有 aspect-video 與肖像容器補上深色佔位底色，企業防火牆封圖時幾何骨架不塌陷。指針離開視窗時以 easeOutCubic 補間動畫（600ms）將環境微光退回畫面中央，不再硬卡邊界。</span><span class="lang-en"><b>[Print Defense × Image Skeleton × Pointer Graceful Exit]</b> Added print-expand styles to all three CASE and Timeline image carousels — Ctrl+P auto-flattens horizontal swipe to a four-column grid; changelog history prints in full. Added dark placeholder backgrounds to all aspect-video and portrait containers so the page skeleton holds under corporate firewall image blocking. On pointer leave, an easeOutCubic tween (600ms) smoothly returns ambient glow to screen center — no hard snap to the viewport edge.</span></span>
+                    <span><span class="lang-zh"><b>[桌面列印按鈕 × 完整列印防守 × 破圖骨架 × 指針優雅退場]</b> 導覽列新增桌面專屬列印按鈕（hidden md:inline-block），中文版顯示「列印紙本」，英文版顯示「PRINT」，樣式與語系切換按鈕完全對稱。建置完整 @media print 防守層：導覽列列印隱藏、背景轉純白、文字轉深色；圖片輪播加掛 print:grid-cols-4 自動平鋪四欄，設計歷程 print:max-h-none 完整釋出。全站 aspect-video 與肖像容器補上深色佔位底色，企業防火牆封圖時骨架不塌陷。指針離開視窗時以 easeOutCubic 補間（600ms）將環境微光退回中央。</span><span class="lang-en"><b>[Desktop Print Button × Full Print Defense × Image Skeleton × Pointer Graceful Exit]</b> Added a desktop-only print button to the nav (hidden md:inline-block) — "列印紙本" in ZH, "PRINT" in EN, visually mirroring the lang toggle. Implemented a complete @media print layer: nav hidden on print, background to pure white, text to dark; image carousels expand to a 4-column grid via print:grid-cols-4, changelog history fully released with print:max-h-none. All aspect-video and portrait containers carry a dark placeholder background so page skeleton holds under firewall image blocking. On pointer leave, an easeOutCubic tween (600ms) smoothly returns ambient glow to screen center.</span></span>
                 </div>
                 <div class="flex flex-col md:flex-row md:gap-4 border-b border-slate-700/40 pb-3">
                     <span class="text-slate-400 font-bold shrink-0">v2.3 (2026-05-24)</span>
@@ -654,7 +665,10 @@
             }
         })();
 
-        // 5. Changelog accordion toggle
+        // 5. 列印按鈕（桌機版專屬，手機端 CSS hidden 隱藏）
+        document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+        // 6. Changelog accordion toggle
         const changelogToggle = document.getElementById('changelogToggle');
         const changelogBody = document.getElementById('changelogBody');
         const changelogChevron = document.getElementById('changelogChevron');
