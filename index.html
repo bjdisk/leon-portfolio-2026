@@ -123,6 +123,12 @@
                 object-fit: cover;
                 display: block;
             }
+            /* 修正：inline style="max-height:0" 優先級高於 Tailwind class，
+               必須用 !important 確保列印時設計歷程完整展開 */
+            #changelogBody {
+                max-height: none !important;
+                opacity: 1 !important;
+            }
         }
         .font-serif-classic {
             font-family: 'Playfair Display', 'Noto Serif TC', Georgia, Cambria, "Times New Roman", Times, serif;
@@ -494,6 +500,10 @@
             <div id="changelogBody" class="overflow-hidden transition-[max-height] duration-300 ease-in-out print:max-h-none print:opacity-100" style="max-height: 0;">
             <div class="space-y-4 font-mono text-[12px] text-slate-500 leading-relaxed">
                 <div class="flex flex-col md:flex-row md:gap-4 border-b border-slate-700/40 pb-3">
+                    <span class="text-slate-400 font-bold shrink-0">v2.5 (2026-05-25)</span>
+                    <span><span class="lang-zh"><b>[定稿修補 × 列印精修 × Colophon × 效能稽核]</b> 新增「PRODUCTION_COLOPHON / 網頁建置誌」區塊，說明人機共製協作模式（Leon 策略決策 / Coda 語意工程 / Archi 資訊索引 / Cody 前端部署）。修正列印版設計歷程無法展開的關鍵 Bug：changelogBody 的 inline style 優先級高於 Tailwind class，補上 CSS !important 確保紙本完整釋出。列印排版全面精修：body margin/padding 歸零、background-attachment 重置、肖像照尺寸限制（max-height 260px / max-width 38%）。肖像照補上 width/height 尺寸屬性，防止 CLS 版面移位。指針退場補間新增 leaveRafId 取消機制，消除快速進出視窗時殘留 RAF 堆積問題。</span><span class="lang-en"><b>[Final Patch × Print Refinement × Colophon × Performance Audit]</b> Added PRODUCTION_COLOPHON section crediting the Human-AI co-production workflow (Leon strategy / Coda semantic engineering / Archi research / Cody frontend deployment). Fixed critical print bug: #changelogBody inline style="max-height:0" overrides Tailwind print class — resolved with !important, ensuring the full changelog history prints. Print layout fully refined: body margin/padding zeroed, background-attachment reset, portrait constrained at max-height 260px / max-width 38%. Portrait img: width=400 height=533 added to prevent layout shift. Pointer-leave tween: added leaveRafId cancel guard — eliminates stacked orphaned RAF loops on rapid mouse in/out.</span></span>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4 border-b border-slate-700/40 pb-3">
                     <span class="text-slate-400 font-bold shrink-0">v2.4 (2026-05-25)</span>
                     <span><span class="lang-zh"><b>[桌面列印按鈕 × 完整列印防守 × 破圖骨架 × 指針優雅退場]</b> 導覽列新增桌面專屬列印按鈕（hidden md:inline-block），中文版顯示「列印紙本」，英文版顯示「PRINT」，樣式與語系切換按鈕完全對稱。建置完整 @media print 防守層：導覽列列印隱藏、背景轉純白、文字轉深色；圖片輪播加掛 print:grid-cols-4 自動平鋪四欄，設計歷程 print:max-h-none 完整釋出。全站 aspect-video 與肖像容器補上深色佔位底色，企業防火牆封圖時骨架不塌陷。指針離開視窗時以 easeOutCubic 補間（600ms）將環境微光退回中央。</span><span class="lang-en"><b>[Desktop Print Button × Full Print Defense × Image Skeleton × Pointer Graceful Exit]</b> Added a desktop-only print button to the nav (hidden md:inline-block) — "列印紙本" in ZH, "PRINT" in EN, visually mirroring the lang toggle. Implemented a complete @media print layer: nav hidden on print, background to pure white, text to dark; image carousels expand to a 4-column grid via print:grid-cols-4, changelog history fully released with print:max-h-none. All aspect-video and portrait containers carry a dark placeholder background so page skeleton holds under firewall image blocking. On pointer leave, an easeOutCubic tween (600ms) smoothly returns ambient glow to screen center.</span></span>
                 </div>
@@ -661,6 +671,7 @@
             const body = document.body;
             let pendingX, pendingY, rafId = null;
             let lastTrailX = null, lastTrailY = null;
+            let leaveRafId = null; // 指針退場補間的 RAF ID，防止多次快速進出疊積殘留動畫
             const TRAIL_MIN_DIST = 40; // px — 最小位移距離才觸發拖尾，停止靜止堆積
 
             function flush() {
@@ -687,7 +698,9 @@
             window.addEventListener('pointermove', track, { passive: true });
 
             // 指針離開視窗：easeOutCubic 補間將微光退回畫面中央偏上，避免硬卡邊界
+            // 每次觸發前先取消上一次尚未完成的補間，防止殘留 RAF 堆積
             window.addEventListener('pointerleave', () => {
+                if (leaveRafId) { cancelAnimationFrame(leaveRafId); leaveRafId = null; }
                 const curX = parseFloat(body.style.getPropertyValue('--mouse-x')) || pendingX;
                 const curY = parseFloat(body.style.getPropertyValue('--mouse-y')) || pendingY;
                 const toX  = window.innerWidth  / 2;
@@ -700,9 +713,9 @@
                     const ep = easeOut(p);
                     body.style.setProperty('--mouse-x', (curX + (toX - curX) * ep) + 'px');
                     body.style.setProperty('--mouse-y', (curY + (toY - curY) * ep) + 'px');
-                    if (p < 1) requestAnimationFrame(step);
+                    leaveRafId = (p < 1) ? requestAnimationFrame(step) : null;
                 }
-                requestAnimationFrame(step);
+                leaveRafId = requestAnimationFrame(step);
             }, { passive: true });
 
             // 點擊漣漪：每次點擊動態生成一個独立元素，動畫結束自刪
