@@ -406,14 +406,15 @@
         </section>
 
         <section class="fade-in-up">
-            <h2 class="text-[10px] font-bold tracking-[0.4em] text-slate-500 uppercase mb-8 border-b border-slate-700/50 pb-3 font-mono"><span class="lang-zh">// PROFESSIONAL MATRIX // 專業能力矩陣</span><span class="lang-en">// PROFESSIONAL MATRIX / Capability Index</span></h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 text-center">
+            <div class="relative z-10 bg-neutral-950/40 backdrop-blur-xl border border-white/[0.06] shadow-2xl shadow-black/60 rounded-2xl p-6 md:p-10">
+            <h2 class="text-[11px] font-bold tracking-[0.4em] text-slate-500 uppercase mb-8 border-b border-slate-700/50 pb-3 font-mono"><span class="lang-zh">// PROFESSIONAL MATRIX // 專業能力矩陣</span><span class="lang-en">// PROFESSIONAL MATRIX / Capability Index</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 text-center">
                 <div class="py-3 text-sm text-slate-200 font-medium"><span class="lang-zh">品牌策略與形象管理</span><span class="lang-en">Brand Strategy &amp; Image Management</span></div>
                 <div class="py-3 text-sm text-slate-200 font-medium"><span class="lang-zh">整合行銷專案企劃</span><span class="lang-en">Integrated Marketing Planning</span></div>
                 <div class="py-3 text-sm text-slate-200 font-medium"><span class="lang-zh">活動規劃與執行落地</span><span class="lang-en">Event Design &amp; Field Execution</span></div>
                 <div class="py-3 text-sm text-slate-200 font-medium"><span class="lang-zh">專案管理與成本管控</span><span class="lang-en">Project &amp; Budget Management</span></div>
             </div>
-            <div class="mt-4 pt-4 border-t border-slate-700/30 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 text-center">
+            <div class="mt-4 pt-4 border-t border-slate-700/30 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2 text-center">
                 <div class="py-3 text-[12px] text-slate-400 font-mono tracking-wider">Workflow Automation</div>
                 <div class="py-3 text-[12px] text-slate-400 font-mono tracking-wider">MS Office</div>
                 <div class="py-3 text-[12px] text-slate-400 font-mono tracking-wider">Google Analytics / Ads</div>
@@ -424,14 +425,11 @@
 
         <section class="fade-in-up">
             <div class="relative z-10 bg-neutral-950/40 backdrop-blur-xl border border-white/[0.06] shadow-2xl shadow-black/60 rounded-2xl p-6 md:p-10">
-            <button id="timelineToggle" class="w-full text-left focus:outline-none cursor-pointer group">
-                <h2 class="text-[11px] font-bold tracking-[0.4em] text-slate-500 uppercase border-b border-slate-700/50 pb-3 flex justify-between items-center group-hover:text-slate-200 transition-colors font-mono">
-                    <span><span class="lang-zh">展開過往職涯履歷 ｜ VIEW FULL TIMELINE</span><span class="lang-en">VIEW FULL TIMELINE / Career Journey</span></span>
-                    <span id="toggleIcon" class="text-xs font-mono text-slate-400 transition-transform duration-300">＋</span>
-                </h2>
-            </button>
+            <h2 class="text-[11px] font-bold tracking-[0.4em] text-slate-500 uppercase border-b border-slate-700/50 pb-3 font-mono">
+                <span class="lang-zh">// CAREER TIMELINE // 過往職涯履歷</span><span class="lang-en">// CAREER TIMELINE / Career Journey</span>
+            </h2>
 
-            <div id="timelineContent" class="hidden opacity-0 transition-opacity duration-300 ease-in-out mt-6 space-y-4">
+            <div class="mt-6 space-y-4">
                 <div class="p-5 bg-slate-900/40 border border-slate-700/50 rounded-lg">
                     <span class="text-[11px] font-mono text-slate-500">2017 - 2022</span>
                     <h3 class="text-base font-bold text-slate-100 mt-0.5"><span class="lang-zh">華厚股份有限公司 // 行銷企劃主任</span><span class="lang-en">Wah Hou Co., Ltd. // Marketing Lead</span></h3>
@@ -504,6 +502,10 @@
             </h2>
             <div class="space-y-4 font-mono text-[12px] text-slate-500 leading-relaxed">
                 <div class="flex flex-col md:flex-row md:gap-4 border-b border-slate-700/40 pb-3">
+                    <span class="text-slate-400 font-bold shrink-0">v2.0 (2026-05-24)</span>
+                    <span><b>[Timeline 常態展開 × Matrix RWD 矩陣修復]</b> 移除職涯履歷摺疊效果，改為常態顯示，Section 標題統一為「// CAREER TIMELINE」格式。專業矩陣手機端 grid-cols-1/sm:grid-cols-2 改為固定 grid-cols-2，跳過 sm 斷點，確保手機直式下能力項目與工具列皆以 2×2 矩陣呈現，消除單欄列表化視覺降級。</span>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-4 border-b border-slate-700/40 pb-3">
                     <span class="text-slate-400 font-bold shrink-0">v1.9 (2026-05-24)</span>
                     <span><b>[Glassmorphism 物理區隔 × 位移拖尾重構]</b> 將 Hero、三大 CASE、專業矩陣、Timeline 六大核心閱讀區塊逐一封裝進獨立毛玻璃卡片（bg-neutral-950/40 + backdrop-blur-xl + border-white/[0.06]），以深邃陰影與圓角建立懸浮空間感，底層微光與漣漪可自然折射透出。Mouse-trail 停止 setInterval 靜止堆積，改採位移閾值（40px）觸發機制，動態感更精準。</span>
                 </div>
@@ -572,28 +574,7 @@
 
         fadeElements.forEach(el => appearanceObserver.observe(el));
 
-        // 2. 抽屜式時間軸摺疊與 RWD 推開邏輯（穩固修正版）
-        const timelineToggle = document.getElementById('timelineToggle');
-        const timelineContent = document.getElementById('timelineContent');
-        const toggleIcon = document.getElementById('toggleIcon');
-
-        timelineToggle.addEventListener('click', () => {
-            const isHidden = timelineContent.classList.contains('hidden');
-
-            if (isHidden) {
-                // 先解除隱藏，再注入漸顯動畫
-                timelineContent.classList.remove('hidden');
-                setTimeout(() => {
-                    timelineContent.classList.remove('opacity-0');
-                }, 10);
-                toggleIcon.style.transform = 'rotate(45deg)';
-            } else {
-                // 先漸隱，再物理隱藏
-                timelineContent.classList.add('opacity-0');
-                timelineContent.classList.add('hidden');
-                toggleIcon.style.transform = 'rotate(0deg)';
-            }
-        });
+        // 2. Timeline 常態顯示（折疊功能已移除）
 
         // 3. 語系切換：data-lang 驅動 ZH/EN 雙語可見性，localStorage 持久化
         const html = document.documentElement;
