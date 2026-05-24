@@ -19,7 +19,11 @@
     <style>
         /* === AMBIENT LIGHT TRACKING（動態微光追蹤）=== */
         /* 將純黑底色上提至 <html>，讓 <body> 承載微光與黢漪疊層 */
-        html { background-color: #0E1B30; }
+        html {
+            background-color: #0E1B30;
+            min-height: 100vh;
+            min-height: 100dvh; /* iOS Safari：動態視口高度，跟隨工具列收放自動調整 */
+        }
         body {
             font-family: 'Lora', 'Noto Serif TC', Georgia, "Times New Roman", serif;
             background-color: transparent;
@@ -30,6 +34,8 @@
                     transparent 80%);
             background-attachment: fixed;
             background-repeat: no-repeat;
+            min-height: 100vh;
+            min-height: 100dvh; /* dvh fallback 覆蓋 Tailwind min-h-screen 的 100vh */
             /* 建立獨立堆疊脈絡，讓 .click-ripple 可以藏在 body 背景上、內容下 */
             isolation: isolate;
         }
@@ -163,7 +169,7 @@
         }
     </style>
 </head>
-<body class="text-[#E8E5DC] antialiased min-h-screen relative selection:bg-slate-700 selection:text-white print:bg-white print:text-neutral-950">
+<body class="text-[#E8E5DC] antialiased relative selection:bg-slate-700 selection:text-white print:bg-white print:text-neutral-950">
 
     <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0E1B30]/80 backdrop-blur-md px-6 md:px-12 py-5 flex justify-between items-center border-b editorial-border print:hidden">
         <span class="font-bold tracking-[0.2em] text-xs text-slate-400 font-mono">LEON CHU // STRATEGIC PROFILE</span>
