@@ -89,13 +89,40 @@
                 background-image: none !important;
                 background-color: #fff !important;
                 min-height: 0 !important;   /* 消除 min-h-screen 造成的空白頁 */
+                padding-top: 0 !important;
+                margin-top: 0 !important;
             }
-            .click-ripple, .mouse-trail { display: none !important; }
+            /* 隱藏動態光效元素 */
+            .click-ripple, .mouse-trail,
+            [id*="trail"], [id*="ripple"],
+            [class*="trail"], [class*="ripple"],
+            [class*="ambient"] { display: none !important; }
             /* 壓縮超大版面間距，避免產生過多空白頁 */
-            header { padding-top: 1.5rem !important; padding-bottom: 0.5rem !important; }
-            main   { padding-top: 0.5rem  !important; padding-bottom: 0.5rem !important; }
+            header { padding-top: 1rem !important; padding-bottom: 0.5rem !important; }
+            main   { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
             .space-y-24 > * + * { margin-top: 2rem !important; }
-            footer { padding-top: 0.5rem  !important; padding-bottom: 0.5rem !important; }
+            footer { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+            /* Hero 頂部最小化：奧格威名言靠近頁首 */
+            section:first-of-type,
+            [class*="pt-36"], [class*="pt-32"],
+            [class*="pt-28"], [class*="pt-24"] {
+                padding-top: 1rem !important;
+                margin-top: 0 !important;
+            }
+            /* 停用 background-attachment: fixed（防止 WebKit 空白頁） */
+            * {
+                background-attachment: initial !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            /* 肖像照列印尺寸限制 */
+            #portrait-photo {
+                max-height: 260px !important;
+                width: auto !important;
+                max-width: 38% !important;
+                object-fit: cover;
+                display: block;
+            }
         }
         .font-serif-classic {
             font-family: 'Playfair Display', 'Noto Serif TC', Georgia, Cambria, "Times New Roman", Times, serif;
@@ -559,6 +586,7 @@
                 <div class="md:col-span-2">
                     <div class="overflow-hidden rounded-[12px] border border-slate-700/50 bg-slate-900/30">
                         <img id="portrait-photo" loading="lazy" decoding="async"
+                             width="400" height="533"
                              src="https://lh3.googleusercontent.com/d/1JubW0PmDUwTZ1ld3FbfvFJnseMIlASMs"
                              alt="Leon Chu"
                              class="w-full aspect-[3/4] object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-[filter,opacity] duration-[400ms] ease-in-out"/>
