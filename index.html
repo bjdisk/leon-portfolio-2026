@@ -85,8 +85,17 @@
         /* === 列印最佳化 (@media print) === */
         @media print {
             html { background-color: #fff !important; }
-            body { background-image: none !important; background-color: #fff !important; }
+            body {
+                background-image: none !important;
+                background-color: #fff !important;
+                min-height: 0 !important;   /* 消除 min-h-screen 造成的空白頁 */
+            }
             .click-ripple, .mouse-trail { display: none !important; }
+            /* 壓縮超大版面間距，避免產生過多空白頁 */
+            header { padding-top: 1.5rem !important; padding-bottom: 0.5rem !important; }
+            main   { padding-top: 0.5rem  !important; padding-bottom: 0.5rem !important; }
+            .space-y-24 > * + * { margin-top: 2rem !important; }
+            footer { padding-top: 0.5rem  !important; padding-bottom: 0.5rem !important; }
         }
         .font-serif-classic {
             font-family: 'Playfair Display', 'Noto Serif TC', Georgia, Cambria, "Times New Roman", Times, serif;
@@ -519,6 +528,24 @@
                 </div>
             </div>
             </div>
+            </div>
+        </section>
+
+        <section class="fade-in-up">
+            <div class="rounded-xl border border-white/[0.06] bg-neutral-950/40 backdrop-blur-xl shadow-2xl shadow-black/60 px-8 py-8">
+                <span class="text-[11px] font-bold font-mono text-slate-500 tracking-[0.4em] uppercase mb-6 block">
+                    // PRODUCTION_COLOPHON // 網頁建置誌
+                </span>
+                <div class="max-w-3xl text-[12px] text-slate-500 font-sans leading-relaxed tracking-wide space-y-4">
+                    <div class="lang-zh space-y-3">
+                        <p>本頁面以「人機共製」模式完成實踐。由朱立人（Leon）主導全案商業策略定錨、事實文案覆查與風險控制；由 Coda（Claude）負責底層邏輯調校、中英文語意精煉與完整的提示詞工程；由 Archi（Gemini）負責即時資訊索引與結構骨架規劃；並透過 Cody（Claude Code）完成前端工程的逐行編譯與雲端自動化部署閉環。</p>
+                        <p>這個頁面本身的交付方式，就是我們在說的那種工作方法——多軌並行、各司其職、結果可查。</p>
+                    </div>
+                    <div class="lang-en space-y-3">
+                        <p>This profile was delivered as a Human-AI Co-Production. Commercial strategy, fact verification, and risk-mitigation decisions by Leon Chu. Copy logic, bilingual semantic refinement, and prompt engineering by Coda (Claude). Real-time research and structural scaffolding by Archi (Gemini). Frontend compilation and automated cloud deployment by Cody (Claude Code).</p>
+                        <p>The way this page was built is the same argument the page is making — distributed ownership, defined roles, traceable output.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
