@@ -103,6 +103,16 @@
         /* === 列印最佳化 (@media print) — PDF 白底閱讀模式 === */
         @media print {
 
+            /* ── 0. 佈局重置：flex/grid → block，消除列印引擎高度計算衝突 ──
+               body 的 display:flex 是螢幕端 sticky footer 用；列印不需要，
+               保留 flex 會讓列印引擎把整個 body 視為不可拆分單元，
+               導致頁面底部出現大片空白。main 的 flex:1 也一起清除。     */
+            html, body, main, header {
+                display: block !important;
+                flex: none !important;
+                height: auto !important;
+            }
+
             /* ── 1. 頁面基底：強制純白 ── */
             html {
                 background-color: #fff !important;
@@ -196,6 +206,68 @@
             #changelogBody {
                 max-height: none !important;
                 opacity: 1 !important;
+                overflow: visible !important;
+            }
+
+            /* ── 12. 斷頁控制：消除非預期空白頁 ────────────────────────────
+               原則：大型容器 allow break-inside；小型原子元素 avoid break-inside
+               Chrome 列印引擎規則：
+               - break-inside: avoid → 若元素超過一頁，整塊推到下頁（造成前頁空白）
+               - break-inside: auto  → 允許在元素內部任意斷頁（內容連貫流動）     */
+
+            /* Section 允許跨頁，但 h2 標題不孤立在頁底 */
+            section {
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+            }
+            section > h2 {
+                break-after: avoid !important;
+                page-break-after: avoid !important;
+            }
+
+            /* Case card (rounded-2xl)：
+               - grid grid-cols-12 → block，讓列印引擎逐行排列、正常分頁
+               - break-inside: auto 允許跨頁（卡片高度 > 一頁，avoid 必然造成空白）  */
+            [class*="rounded-2xl"] {
+                display: block !important;
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+            }
+
+            /* Case card 12 欄 Grid → block 線性排版（消除 grid 分頁衝突） */
+            [class*="grid-cols-12"] {
+                display: block !important;
+            }
+
+            /* About Me 5 欄 Grid → block */
+            [class*="grid-cols-5"] {
+                display: block !important;
+            }
+
+            /* Photo evidence 圖片群組：允許群組跨頁，但單張圖片框不拆分 */
+            [class*="grid-cols-4"] {
+                break-inside: auto !important;
+                page-break-inside: auto !important;
+            }
+            figure {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+                display: inline-block !important; /* 讓 avoid 在 Chrome 生效 */
+                width: 24% !important;
+                vertical-align: top !important;
+            }
+
+            /* 統計數字 / 技能矩陣等小型格子：不拆分 */
+            [class*="grid-cols-2"],
+            [class*="grid-cols-4"]:not([class*="grid-cols-12"]) > div {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            /* space-y-6 case card 群組：允許跨頁（多張卡片一定要允許）*/
+            .space-y-6 {
+                break-inside: auto !important;
+                page-break-inside: auto !important;
             }
         }
         .font-serif-classic {
